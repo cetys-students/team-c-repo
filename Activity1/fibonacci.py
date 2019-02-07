@@ -29,4 +29,11 @@
 
 class Solution:
         def fib(self, N: 'int') -> 'int':
-                  pass
+                if N == 0:
+                        n = 0
+                elif N == 1:
+                        n = 1
+                else:
+                        n = self.fib(N-1) + self.fib(N-2)
+                return n
+                
