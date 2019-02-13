@@ -35,5 +35,35 @@
 
 class Solution:
         def isToeplitzMatrix(self, matrix: 'List[List[int]]') -> 'bool':
-                  pass
+
+                for i in range(len(matrix)):
+                    f = (len(matrix)-1)-i
+                    array = []
+                    for j in range(i+1):
+                        array.append(matrix[j][f+j])
+                        if j == (len(matrix[0])-1):
+                            pass
+
+                    for k in range(1,len(array)):
+                        if array[k] == array[(k-1)]:
+                            continue
+                        else:
+                            return False
+
+
+
+                for i in range(len(matrix[0])):
+                    f = (len(matrix[0])-1)-i
+                    array = []
+                    
+                    for j in range(i+1):
+                        array.append(matrix[f+j][j])
+                        if j == (len(matrix)-1):
+                            pass
+                    for k in range(1,len(array)):
+                        if array[k] == array[(k-1)]:
+                            continue
+                        else:
+                            return False
+                pass
 
