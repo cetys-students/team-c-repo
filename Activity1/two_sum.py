@@ -8,6 +8,14 @@
 # Because nums[0] + nums[1] = 2 + 7 = 9,
 # return [0, 1].
 
-class Solution:
+class Solution():
         def twoSum(self, nums: 'List[int]', target: 'int') -> 'List[int]':
-                  pass
+                for i in nums:
+                        nums2 = nums[1:]
+                        for j in nums2:
+                                if (i + j) == target:
+                                        result = []
+                                        result.append(nums.index(i))
+                                        result.append(nums.index(j))
+                                        return result
+                                        
