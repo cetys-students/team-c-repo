@@ -10,8 +10,13 @@
 # 
 # Input: "race a car"
 # Output: false
-
+import re
 class Solution:
         def isPalindrome(self, s: 'str') -> 'bool':
-                  pass
-
+                s = re.sub('[^a-zA-Z0-9]', '', s)
+                s= s.lower()
+                sReversed = ''.join(reversed(s))
+                if s == sReversed:
+                        return True
+                else:
+                        return False
