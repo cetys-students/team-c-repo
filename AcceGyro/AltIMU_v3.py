@@ -53,8 +53,8 @@ class AltIMUv3(I2C):
             self.is_accel_enabled = True
 
         if gyroscope:
-            self.write_register(L3GD20H_Address, L3GD20H.CTRL1, 0xFF)
-            self.write_register(L3GD20H_Address, L3GD20H.CTRL2, 0x00)
+            self.write_register(L3GD20H_Address, L3GD20H.CTRL1, 0xEF)
+            self.write_register(L3GD20H_Address, L3GD20H.CTRL4, 0x10)
             self.is_gyro_enabled = True
 
     def get_accelerometer_raw(self):

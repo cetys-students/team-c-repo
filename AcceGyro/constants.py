@@ -14,7 +14,7 @@ class LSM303D(IntEnum):
     OUT_Y_H_M = 0X0B
     OUT_Z_L_M = 0x0C
     OUT_Z_H_M = 0x0D
-    WHO_AM_I = 0x0
+    WHO_AM_I = 0x0F
     CTRL0 = 0x1F
     CTRL1 = 0x20
     CTRL2 = 0x21
@@ -23,7 +23,7 @@ class LSM303D(IntEnum):
     CTRL5 = 0x24
     CTRL6 = 0x25
     CTRL7 = 0x26
-    STATUS_A = 0x2
+    STATUS_A = 0x27
     OUT_X_L_A = 0x28
     OUT_X_H_A = 0x29
     OUT_Y_L_A = 0x2A
