@@ -1,5 +1,8 @@
 from I2C import I2C
 from constants import *
+##from Integral import Integration
+from time import time
+##from GyroLowHigh import LowPassfilter as LP
 
 
 class AltIMUv3(I2C):
@@ -32,6 +35,11 @@ class AltIMUv3(I2C):
         super(AltIMUv3, self).__init__(bus_id)
         self.is_accel_enabled = False
         self.is_gyro_enabled = False
+        
+##        self.Integreichon = Integration()
+##        self.LPf = LP(self.get_accelerometer_cal(),0.8)
+        
+        
 
     def __del__(self):
         """ 
@@ -50,6 +58,7 @@ class AltIMUv3(I2C):
         if accelerometer:
             self.write_register(LSM303D_Address, LSM303D.CTRL1, 0xA7)
             self.write_register(LSM303D_Address, LSM303D.CTRL2, 0x00)
+            
             self.is_accel_enabled = True
 
         if gyroscope:
@@ -90,8 +99,67 @@ class AltIMUv3(I2C):
         cal_x = raw[0] * scaling
         cal_y = raw[1] * scaling
         cal_z = raw[2] * scaling
+        #print(round(cal_x,3))
 
         return [cal_x, cal_y, cal_z]
+
+
+    def get_integration(self,LPf,Integreichon, samples = 20):
+##        Integreichon = self.Integreichon
+##        LPf = self.LPf
+        equis = []
+        lle = []
+        ceta = []
+        Timing = time()
+        for i in range(samples):
+            heysha = LPf.update_measurement(self.get_accelerometer_cal())
+            equis.append(heysha[0])
+            lle.append(heysha[1])
+            ceta.append(heysha[2])
+        Timing = (time()-Timing)/samples
+        #print(Timing)
+
+        return [Integreichon.definite_integral(equis,TimeFactor=Timing),Integreichon.definite_integral(lle,TimeFactor=Timing),Integreichon.definite_integral(ceta,TimeFactor=Timing)]
+
+
+    def get_accelerometer_average(self,Filter=None, average=3, Posichon=None):
+        
+        x = []
+        y = []
+        z = []
+        if Filter != None:
+            for i in range(average):
+                accel = Filter.update_measurement(self.get_accelerometer_cal())
+                x.append(accel[0])
+                y.append(accel[1])
+                z.append(accel[2])
+                
+            aveX = sum(x)/average
+            aveY = sum(y)/average
+            aveZ = sum(z)/average
+            
+
+        elif Posichon != None:
+            aveX = sum(Posichon[0])/average
+            aveY = sum(Posichon[1])/average
+            aveZ = sum(Posichon[2])/average
+        
+        else:
+            for i in range(average):
+                accel =     self.get_accelerometer_cal()
+                x.append(accel[0])
+                y.append(accel[1])
+                z.append(accel[2])
+                print([accel[0],accel[1],accel[2]])
+            aveX = sum(x)/average
+            aveY = sum(y)/average
+            aveZ = sum(z)/average
+        
+        
+        
+        return [aveX,aveY,aveZ]
+        
+
 
     def get_gyroscope_cal(self):
         """
