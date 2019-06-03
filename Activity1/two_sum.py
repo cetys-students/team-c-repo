@@ -9,7 +9,7 @@
 # return [0, 1].
 
 class Solution:
-        def twoSum(self, nums: 'List[int]', target: 'int') -> 'List[int]':
+        def twoSum(self, nums: 'List[int]', target: 'int') -> 'List[int]':11|
                 for i in nums:
                         nums2 = nums[1:]
                         for j in nums2:
